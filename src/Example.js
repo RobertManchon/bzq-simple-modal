@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {Modal} from './lib';
 
 export default function ExampleModal() {
@@ -6,15 +7,15 @@ export default function ExampleModal() {
 	const handleClickModal = () => isModalActive ? setModalActive(false) : setModalActive(true);
 	return (
 		<div>
-		<button onClick={handleClickModal}>test</button>
-		<Modal 
-			setState={setModalActive} 
-			isActive={isModalActive} 
-			modalContent= "This is a modal" 
-			backgroundStyle={{ backgroundColor:"rgba(0,0,0,0.2)" }} 
-			refresh={true}
-			persist
-		/>
+			<button onClick={handleClickModal}>test</button>
+			<Modal
+				handleClick={handleClickModal}
+				isActive={isModalActive}
+				modalContent="A new employee has been added !"
+				contentStyle={{paddingTop:"4rem",font: "bold 22px/1 sans-serif"}}
+				backgroundStyle={{ backgroundColor:"rgba(0,0,0,0.2)"}}
+				refresh={true}
+			/>
 		</div>
 	)
 }

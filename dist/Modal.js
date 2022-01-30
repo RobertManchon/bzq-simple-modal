@@ -5,85 +5,24 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
-var _useClickOutsideRef = _interopRequireDefault(
-    require("./useClickOutsideRef")
-);
+var _bi = require("react-icons/bi");
 
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
 }
 
-function _getRequireWildcardCache(nodeInterop) {
-    if (typeof WeakMap !== "function") return null;
-    var cacheBabelInterop = new WeakMap();
-    var cacheNodeInterop = new WeakMap();
-    return (_getRequireWildcardCache = function (nodeInterop) {
-        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
-    })(nodeInterop);
-}
-
-function _interopRequireWildcard(obj, nodeInterop) {
-    if (!nodeInterop && obj && obj.__esModule) {
-        return obj;
-    }
-    if (obj === null || (typeof obj !== "object" && typeof obj !== "function")) {
-        return { default: obj };
-    }
-    var cache = _getRequireWildcardCache(nodeInterop);
-    if (cache && cache.has(obj)) {
-        return cache.get(obj);
-    }
-    var newObj = {};
-    var hasPropertyDescriptor =
-        Object.defineProperty && Object.getOwnPropertyDescriptor;
-    for (var key in obj) {
-        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
-            var desc = hasPropertyDescriptor
-                ? Object.getOwnPropertyDescriptor(obj, key)
-                : null;
-            if (desc && (desc.get || desc.set)) {
-                Object.defineProperty(newObj, key, desc);
-            } else {
-                newObj[key] = obj[key];
-            }
-        }
-    }
-    newObj.default = obj;
-    if (cache) {
-        cache.set(obj, newObj);
-    }
-    return newObj;
-}
-
-function Modal({
+const Modal = ({
                    isActive,
-                   setState,
+                   handleClick,
                    modalContent,
                    backgroundStyle,
                    contentStyle,
                    exitBtn,
                    exitBtnStyle,
-                   refresh,
-                   persist
-               }) {
-    const modalRef = (0, _useClickOutsideRef.default)(() => {
-        if (isActive && !persist) setState(false);
-    }); //handle close modal by esc button
-
-    const handleEscape = (0, _react.useCallback)((e) => {
-        if (e.keyCode === 27) setState(false);
-    });
-    (0, _react.useEffect)(() => {
-        if (isActive) {
-            document.addEventListener("keydown", handleEscape, false);
-        }
-
-        return () => {
-            document.removeEventListener("keydown", handleEscape, false);
-        };
-    }, [handleEscape, isActive]);
+                   refresh
+               }) => {
     const backStyle = {
         display: isActive ? "block" : "none",
         position: "absolute",
@@ -98,8 +37,10 @@ function Modal({
     };
     const innerStyle = {
         maxWidth: "20%",
+        maxHeight: "20%",
+        minHeight: "10%",
         position: "relative",
-        border: "3px solid red",
+        border: "5px solid red",
         borderRadius: 10,
         backgroundColor: "white",
         padding: 20,
@@ -110,14 +51,14 @@ function Modal({
     };
     const exitStyle = {
         position: "absolute",
-        top: 5,
-        right: 15,
+        top: 2,
+        right: 8,
         cursor: "pointer",
         ...exitBtnStyle
     };
 
     const handleClickExit = () => {
-        setState(false);
+        handleClick();
 
         if (refresh) {
             window.location.reload();
@@ -132,8 +73,7 @@ function Modal({
         /*#__PURE__*/ _react.default.createElement(
             "div",
             {
-                style: innerStyle,
-                ref: modalRef
+                style: innerStyle
             },
             modalContent,
             /*#__PURE__*/ _react.default.createElement(
@@ -142,11 +82,15 @@ function Modal({
                     style: exitStyle,
                     onClick: handleClickExit
                 },
-                exitBtn ? exitBtn : "X"
+                exitBtn
+                    ? exitBtn
+                    : /*#__PURE__*/ _react.default.createElement(_bi.BiWindowClose, {
+                        size: "1.5rem"
+                    })
             )
         )
     );
-}
+};
 
 var _default = Modal;
 exports.default = _default;
