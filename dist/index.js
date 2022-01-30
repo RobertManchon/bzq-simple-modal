@@ -1,16 +1,17 @@
 "use strict";
 
-var _react = _interopRequireDefault(require("react"));
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "Modal", {
+    enumerable: true,
+    get: function () {
+        return _Modal.default;
+    }
+});
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _Example = _interopRequireDefault(require("./Example"));
+var _Modal = _interopRequireDefault(require("./Modal"));
 
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
 }
-
-_reactDom.default.render(
-    /*#__PURE__*/ _react.default.createElement(_Example.default, null),
-    document.getElementById("root")
-);
